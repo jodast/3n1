@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <title>3n+1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <canvas id="painting"></canvas>
+    <script>
+      const canvas = document.getElementById("painting");
+      const ctx = canvas.getContext("2d");
+
+      // set canvas size to screen size
+      canvas.width = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      canvas.height = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+
+      // 3n+1
+      function generate(seed, pos=seed, posNr=0) {
+        console.log(`seed: ${seed}, pos: ${pos}, posNr: ${posNr}`);
+
+        // check if end is reached
+        if (pos === 0 || pos === 1) {
+          return true
+        } else if (!(posNr === 0) && seed === pos) {
+          return false
+        }
+
+        // apply rules
+        if (isEven(pos)) {
+          pos = pos / 2;
+        } else {
+          pos = pos * 3 + 1;
+        }
+
+        // draw dots
+        ctx.fillRect(seed,pos,2,2);
+
+        // next iteration
+        return generate(seed, pos, posNr+1);
+      }
+
+      // check if int is even or odd
+      function isEven(x) {
+        return ( x & 1 ) ? false : true;
+      }
+
+      counter = 4;
+      function breakIt() {
+        if (generate(counter++)) {
+          setTimeout(() => {
+            breakIt(); 
+          }, 10);
+        } else {
+          alert("Collatz conjecture broken!! Integer: ", counter);
+        }
+      }
+
+      breakIt();
+    </script>
+  </body>
+</html>
