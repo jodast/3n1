@@ -9,9 +9,9 @@
       const canvas = document.getElementById("painting");
       const ctx = canvas.getContext("2d");
 
-      // set canvas size to screen size * 10
-      canvas.width = 10*Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-      canvas.height = 10*Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+      // set canvas size to screen size * 2
+      canvas.width = 2*Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      canvas.height = 2*Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
 
       // 3n+1
       function generate(seed, pos=seed, posNr=0) {
@@ -45,7 +45,7 @@
       counter = 4;
       function breakIt() {
         if (generate(counter++)) {
-          setTimeout(breakIt, 10);
+          requestAnimationFrame(breakIt);
         } else {
           alert(`Collatz conjecture broken!! Integer: ${counter}`);
         }
